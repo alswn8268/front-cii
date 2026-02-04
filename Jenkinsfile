@@ -36,6 +36,16 @@ pipeline {
         archiveArtifacts artifacts: 'dist/**', fingerprint: true
       }
     }
+
+    stage('Deploy (Local)') {
+      steps {
+        bat '''
+          rmdir /s /q C:\\deploy\\front
+          mkdir C:\\deploy\\front
+          xcopy dist C:\\deploy\\front /E /I /Y
+        '''
+      }
+    }
   }
 
   post {
